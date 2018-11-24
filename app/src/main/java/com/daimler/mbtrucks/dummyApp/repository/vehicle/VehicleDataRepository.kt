@@ -99,7 +99,7 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
                 }
 
                 VehicleClientData.topicList[2] -> {
-                    if (message.valueAsFloat >= 0) {
+                    if (message.valueAsLong >= 0) {
                         postDistanceToTheObject(message.valueAsLong)
                     }
                 }

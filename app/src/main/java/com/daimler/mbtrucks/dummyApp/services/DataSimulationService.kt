@@ -17,28 +17,36 @@ object DataSimulationService {
 
     // Define a set of messages
     var messages: Array<VehicleMessage> = arrayOf(
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 9.3f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 25.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 45.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.ACCEL_PEDAL_POS, 1, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, -95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 189.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.TOTAL_ENGINE_HOURS, 9, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.ERROR),
-            VehicleMessage(VehicleTopicConsts.FUEL_LEVEL, 99, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.FMS_MODULE_SW_VERSION, 666L, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.AMBIENT_TEMPERATURE, 14.5f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.DISTANCE_TO_FORWARD_VEHICLE, 9545648L, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.COOLANT_TEMPERATURE, 107.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.CRUISE_CONTROL_STATE, 1, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.CRUISE_CONTROL_STATE, 0, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.TOTAL_VEHICLE_DISTANCE, 90L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 80L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 40L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 30L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 20L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 10L, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 0L, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 9.3f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 25.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 45.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.ACCEL_PEDAL_POS, 1, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, -95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 189.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.TOTAL_ENGINE_HOURS, 9, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.ERROR),
+//            VehicleMessage(VehicleTopicConsts.FUEL_LEVEL, 99, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.FMS_MODULE_SW_VERSION, 666L, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.AMBIENT_TEMPERATURE, 14.5f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.DISTANCE_TO_FORWARD_VEHICLE, 9545648L, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT, 20L, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.COOLANT_TEMPERATURE, 107.4f, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.CRUISE_CONTROL_STATE, 1, ValidState.VALID),
+//            VehicleMessage(VehicleTopicConsts.CRUISE_CONTROL_STATE, 0, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 90.4f, ValidState.VALID))
 
     init {
@@ -55,7 +63,7 @@ object DataSimulationService {
                 if (element < messages.size) handleMessage(messages[element])
 
                 element++
-                handler.postDelayed(this, 100)
+                handler.postDelayed(this, 1000)
             }
         }
         handler.postDelayed(runnable, 2000)

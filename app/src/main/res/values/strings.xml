@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Dummy App</string>
     <string name="txt_speed">--</string>
+    <string name="from_a">A</string>
+    <string name="from_b">B</string>
 </resources>

@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
     // handle some things that are not useful while in background
     private var isInForeground: Boolean = false
 
+    private var totalDistance: Long = 0L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,9 +122,14 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
 
     override fun onVehicleDistanceToObject(speed: Long) {
         Log.i(TAG, "Current distance to the object: $speed km")
+        Log.i(TAG, "Current total distance: $totalDistance km")
 
         // Only do something with incoming values, if the app is in foreground
         if (isInForeground) {
+            if (speed < totalDistance) {
+                val rest = (totalDistance - speed).toDouble() / totalDistance.toDouble()
+                progressBar.progress = (rest * 100).toInt()
+            }
             // Show the new incoming value on the ui
         }
     }
@@ -211,6 +218,7 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
     override fun onTotalVehicleDistance(totalDistance: Long) {
         Log.i(TAG, "Current total vehicle distance: $totalDistance km")
 
+        this.totalDistance = totalDistance
         // Only do something with incoming values, if the app is in foreground
         if (isInForeground) {
             // Show the new incoming value on the ui
