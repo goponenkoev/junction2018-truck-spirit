@@ -5,14 +5,13 @@
 package com.daimler.mbtrucks.dummyApp.repository.vehicle
 
 import android.content.Context
-import com.daimler.mbtrucks.dummyApp.MainActivity
 import com.fleetboard.sdk.lib.android.common.SDKInitializer
 import com.fleetboard.sdk.lib.android.common.SDKInitializerException
-import com.fleetboard.sdk.lib.android.log.Log
 import com.fleetboard.sdk.lib.android.vehicle.VehicleClient
 import com.fleetboard.sdk.lib.android.vehicle.VehicleClientException
 import com.fleetboard.sdk.lib.vehicle.IVehicleMessage
 import com.fleetboard.sdk.lib.vehicle.ValidState
+import com.fleetboard.sdk.lib.android.log.Log
 
 ///
 // This repository handles the connection with the vehicle and the messages sent from the vehicle
@@ -25,7 +24,6 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
     override var subscribers: MutableList<IVehicleDataSubscriber> = mutableListOf()
 
     lateinit var vehicleClientCallback: VehicleClientCallback
-
 
     private const val MAX_SPEED = 162f
 

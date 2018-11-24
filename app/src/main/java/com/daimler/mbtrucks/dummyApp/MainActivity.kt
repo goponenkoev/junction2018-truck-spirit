@@ -5,9 +5,11 @@
 package com.daimler.mbtrucks.dummyApp
 
 import android.content.Context
+import android.location.Criteria
+import android.location.LocationManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import com.fleetboard.sdk.lib.android.log.Log
 import android.widget.Toast
 import com.daimler.mbtrucks.dummyApp.repository.vehicle.IVehicleDataSubscriber
 import com.daimler.mbtrucks.dummyApp.repository.vehicle.VehicleDataRepository
@@ -50,6 +52,36 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
 
         // Finally just connect this application to the vehicle
         connectVehicle(applicationContext)
+        createLocationManager(applicationContext)
+    }
+
+    private fun createLocationManager(context: Context) {
+
+        val CRITERIA = object : Criteria() {
+            init {
+                this.accuracy = Criteria.ACCURACY_FINE
+                this.isAltitudeRequired = true
+                this.bearingAccuracy = Criteria.ACCURACY_HIGH
+                this.isBearingRequired = true
+                this.horizontalAccuracy = Criteria.ACCURACY_HIGH
+                this.speedAccuracy = Criteria.ACCURACY_HIGH
+                this.isSpeedRequired = true
+                this.verticalAccuracy = Criteria.ACCURACY_HIGH
+            }
+        }
+
+        val enabled = true
+
+        val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        val providerNames = lm.getProviders(CRITERIA, enabled)
+        val bestProviderMatch = lm.getBestProvider(CRITERIA, enabled)
+
+        Log.i(TAG, "TEST")
+        Log.i(TAG, "LM: $providerNames")
+        Log.i(TAG, "LM: $bestProviderMatch")
+
+
     }
 
     private fun connectVehicle(context: Context) {

@@ -1,20 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.daimler.mbtrucks.dummyApp">
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.daimler.mbtrucks.dummyApp">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+    <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+    <provider android:authorities="${applicationId}.authorities.log.PROVIDER" android:exported="false" android:grantUriPermissions="true" android:name="android.support.v4.content.FileProvider">
+    <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/logging_filepaths"/>
+</provider>
+        <service android:exported="true" android:name="com.fleetboard.sdk.lib.android.log.FileLogIntentService" android:permission="com.fleetboard.sdk.permission.log.FILE_LOGGING">
+    <intent-filter>
+        <action android:name="com.fleetboard.sdk.action.log.START"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.fleetboard.sdk.action.log.UPLOAD"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.OPENABLE"/>
+        <data android:mimeType="application/zip"/>
+    </intent-filter>
+    <intent-filter>
+        <action android:name="com.fleetboard.sdk.action.log.FILES_PROVIDED"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+    </intent-filter>
+</service>
     </application>
 
 </manifest>
