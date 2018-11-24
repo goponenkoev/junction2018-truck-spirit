@@ -23,8 +23,15 @@ object DataSimulationService {
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 65.4f, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 85.4f, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 91.4f, ValidState.VALID),
-            VehicleMessage(VehicleTopicConsts.TOTAL_VEHICLE_DISTANCE, 134586L, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 93.4f, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_ID, 1, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.ACCEL_PEDAL_POS, 1, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, -95.4f, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 189.4f, ValidState.VALID),
+            VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 95.4f, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 87.4f, ValidState.VALID),
             VehicleMessage(VehicleTopicConsts.VEHICLE_SPEED, 90.4f, ValidState.VALID))
@@ -43,7 +50,7 @@ object DataSimulationService {
                 if (element < messages.size) handleMessage(messages[element])
 
                 element++
-                handler.postDelayed(this, 2000)
+                handler.postDelayed(this, 100)
             }
         }
         handler.postDelayed(runnable, 2000)

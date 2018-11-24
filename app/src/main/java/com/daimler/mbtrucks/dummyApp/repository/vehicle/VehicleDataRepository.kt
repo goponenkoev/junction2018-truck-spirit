@@ -5,12 +5,14 @@
 package com.daimler.mbtrucks.dummyApp.repository.vehicle
 
 import android.content.Context
+import com.daimler.mbtrucks.dummyApp.MainActivity
 import com.fleetboard.sdk.lib.android.common.SDKInitializer
 import com.fleetboard.sdk.lib.android.common.SDKInitializerException
 import com.fleetboard.sdk.lib.android.log.Log
 import com.fleetboard.sdk.lib.android.vehicle.VehicleClient
 import com.fleetboard.sdk.lib.android.vehicle.VehicleClientException
 import com.fleetboard.sdk.lib.vehicle.IVehicleMessage
+import com.fleetboard.sdk.lib.vehicle.ValidState
 
 ///
 // This repository handles the connection with the vehicle and the messages sent from the vehicle
@@ -24,6 +26,8 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
 
     lateinit var vehicleClientCallback: VehicleClientCallback
 
+
+    private const val MAX_SPEED = 162f
 
     override fun initializeSdk(context: Context): Boolean {
 
@@ -79,11 +83,25 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
 
             when (message.topic) {
                 VehicleClientData.topicList[0] -> {
-                    postVehicleSpeed(message.valueAsFloat)
+                    val speed = message.valueAsFloat
+                    if (speed in 0.0f..MAX_SPEED && message.validState == ValidState.VALID) {
+                        postVehicleSpeed(speed)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of vehicle speed: $speed km/h" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
                 }
 
                 VehicleClientData.topicList[1] -> {
-                    postTotalVehicleDistance(message.valueAsLong)
+                    if (message.valueAsLong >= 0) {
+                        postTotalVehicleDistance(message.valueAsLong)
+                    }
+                }
+
+                VehicleClientData.topicList[2] -> {
+                    if (message.valueAsFloat >= 0) {
+                        postDistanceToTheObject(message.valueAsLong)
+                    }
                 }
             }
         }
@@ -95,6 +113,10 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
 
     private fun postTotalVehicleDistance(totalDistance: Long) {
         subscribers.forEach { it.onTotalVehicleDistance(totalDistance) }
+    }
+
+    private fun postDistanceToTheObject(distance: Long) {
+        subscribers.forEach { it.onVehicleDistanceToObject(distance) }
     }
 
     override fun register(subscriber: IVehicleDataSubscriber) {

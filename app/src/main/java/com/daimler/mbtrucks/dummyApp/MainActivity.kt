@@ -74,6 +74,15 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
         }
     }
 
+    override fun onVehicleDistanceToObject(speed: Long) {
+        Log.i(TAG, "Current distance to the object: $speed km")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
     override fun onTotalVehicleDistance(totalDistance: Long) {
         Log.i(TAG, "Current total vehicle distance: $totalDistance km")
 
@@ -81,6 +90,7 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
         if (isInForeground) {
             // Show the new incoming value on the ui
             // ...
+
         }
     }
 

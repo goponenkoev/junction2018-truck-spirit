@@ -11,4 +11,5 @@ package com.daimler.mbtrucks.dummyApp.repository.vehicle
 interface IVehicleDataSubscriber {
     fun onVehicleSpeed(speed: Float)
     fun onTotalVehicleDistance(totalDistance: Long)
+    fun onVehicleDistanceToObject(speed: Long)
 }

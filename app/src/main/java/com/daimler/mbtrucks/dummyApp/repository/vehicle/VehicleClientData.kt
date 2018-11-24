@@ -14,7 +14,8 @@ object VehicleClientData {
 
     val topicList = intArrayOf(
             VehicleTopicConsts.VEHICLE_SPEED,
-            VehicleTopicConsts.TOTAL_VEHICLE_DISTANCE
+            VehicleTopicConsts.TOTAL_VEHICLE_DISTANCE,
+            VehicleTopicConsts.ABA_DISTANCE_TO_OBJECT
             // ...
     )
 }
