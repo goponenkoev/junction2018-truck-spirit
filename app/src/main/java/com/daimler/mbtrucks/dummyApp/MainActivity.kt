@@ -84,6 +84,18 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
 
     }
 
+    override fun onCruiseControl(cruiseControlState: Int) {
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+            if (cruiseControlState == 0 ){ // OFF
+                Log.i(TAG, "Current cruise control state is OFF ")
+            }else if (cruiseControlState == 1){ // ON
+                Log.i(TAG, "Current cruise control state id ON ")
+            }
+        }
+    }
+
     private fun connectVehicle(context: Context) {
         try {
             if (vehicleDataRepository.initializeSdk(context)) {
@@ -108,6 +120,87 @@ class MainActivity : AppCompatActivity(), IVehicleDataSubscriber {
 
     override fun onVehicleDistanceToObject(speed: Long) {
         Log.i(TAG, "Current distance to the object: $speed km")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onTotalEngineHours(totalEngineHours: Int) {
+        Log.i(TAG, "Current total engine hours: $totalEngineHours km")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onVehicleWeight(vehicleWeight: Int) {
+        Log.i(TAG, "Current vehicle weight: $vehicleWeight kg")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onFMSVersion(fmsVersion: Long) {
+        Log.i(TAG, "Current FMS version: $fmsVersion")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onEngineSpeed(engineSpeed: Long) {
+        Log.i(TAG, "Current engine speed: $engineSpeed")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onDistanceToForwardVehicle(distanceToForwardVehicle: Long) {
+        Log.i(TAG, "Current distance to forward vehicle: $distanceToForwardVehicle km")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onCoolantTemperature(coolantTemperature: Float) {
+        Log.i(TAG, "Current coolant temperature: $coolantTemperature")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onAccelPedalPos(accelPedalPos: Int) {
+        Log.i(TAG, "Current accel pedal position: $accelPedalPos")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onAmbientTemperature(temperature: Float) {
+        Log.i(TAG, "Current ambient temperature: $temperature")
+
+        // Only do something with incoming values, if the app is in foreground
+        if (isInForeground) {
+            // Show the new incoming value on the ui
+        }
+    }
+
+    override fun onFuelLevel(fuelLevel: Int) {
+        Log.i(TAG, "Current fuel level: $fuelLevel %")
 
         // Only do something with incoming values, if the app is in foreground
         if (isInForeground) {

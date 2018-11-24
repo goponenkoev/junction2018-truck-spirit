@@ -79,7 +79,9 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
         // You have to do this for each registered topic separately
         if (message.value != null) {
 
+            Log.i(TAG, "TEST: topic ${message.topic}")
             when (message.topic) {
+
                 VehicleClientData.topicList[0] -> {
                     val speed = message.valueAsFloat
                     if (speed in 0.0f..MAX_SPEED && message.validState == ValidState.VALID) {
@@ -101,8 +103,151 @@ object VehicleDataRepository : IVehicleDataRepository, IVehicleDataPublisher {
                         postDistanceToTheObject(message.valueAsLong)
                     }
                 }
+
+                VehicleClientData.topicList[3] -> {
+                    val temperature = message.valueAsFloat
+                    if (message.validState == ValidState.VALID) {
+                        postAmbientTemperature(temperature)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of AMBIENT_TEMPERATURE: $temperature *C" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[4] -> {
+                    val accelPedalPos = message.valueAsInteger
+                    if (accelPedalPos in 0..360 && message.validState == ValidState.VALID) {
+                        postAccelPedalPos(accelPedalPos)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of ACCEL_PEDAL_POS: $accelPedalPos %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[5] -> {
+                    val coolantTemperature = message.valueAsFloat
+                    if (message.validState == ValidState.VALID) {
+                        postCoolantTemperature(coolantTemperature)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of COOLANT_TEMPERATURE: $coolantTemperature %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[6] -> {
+
+                    val distanceToForwardVehicle = message.valueAsLong
+                    if (distanceToForwardVehicle >= 0 && message.validState == ValidState.VALID) {
+                        postDistanceToForwardVehivale(distanceToForwardVehicle)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of DISTANCE_TO_FORWARD_VEHICLE: $distanceToForwardVehicle %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[7] -> {
+                    val cruiseControlState = message.valueAsInteger
+                    if (message.validState == ValidState.VALID) {
+                        postCruiseControlState(cruiseControlState)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of CRUISE_CONTROL_STATE: $cruiseControlState %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[8] -> {
+                    val engineSpeed = message.valueAsLong
+                    if (engineSpeed >= 0 && message.validState == ValidState.VALID) {
+                        postEngineSpeed(engineSpeed)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of ENGINE_SPEED: $engineSpeed %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[9] -> {
+                    val fmsVersion = message.valueAsLong
+                    Log.i("TEST", " $fmsVersion")
+                    if (message.validState == ValidState.VALID) {
+                        postFMSVersion(fmsVersion)
+                    }else{
+                        android.util.Log.i(TAG, "Wrong value of FMS_MODULE_SW_VERSION: $fmsVersion %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[10] -> {
+                    val fuelLevel = message.valueAsInteger
+                    if (fuelLevel in 0..100 && message.validState == ValidState.VALID) {
+                        postFuelLevel(fuelLevel)
+                    }else{
+                        Log.i(TAG, "Wrong value of FUEL_LEVEL: $fuelLevel %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[11] -> {
+                    val vehicleWeight = message.valueAsInteger
+                    if (vehicleWeight > 0 && message.validState == ValidState.VALID) {
+                        postVehicleWeight(vehicleWeight)
+                    }else{
+                        Log.i(TAG, "Wrong value of VEHICLE_WEIGHT: $vehicleWeight %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
+                VehicleClientData.topicList[12] -> {
+                    val totalEngineHours = message.valueAsInteger
+                    if (message.validState == ValidState.VALID) {
+                        postTotalEngineHours(totalEngineHours)
+                    }else{
+                        Log.i(TAG, "Wrong value of TOTAL_ENGINE_HOURS: $totalEngineHours %" +
+                                " VALID_STATE: ${message.validState} ")
+                    }
+                }
+
             }
         }
+    }
+
+    private fun postTotalEngineHours(totalEngineHours: Int) {
+        subscribers.forEach { it.onTotalEngineHours(totalEngineHours) }
+    }
+
+    private fun postVehicleWeight(vehicleWeight: Int) {
+        subscribers.forEach { it.onVehicleWeight(vehicleWeight) }
+    }
+
+    private fun postFuelLevel(fuelLevel: Int) {
+        subscribers.forEach { it.onFuelLevel(fuelLevel) }
+    }
+
+    private fun postFMSVersion(fmsVersion: Long) {
+        subscribers.forEach { it.onFMSVersion(fmsVersion) }
+    }
+
+    private fun postEngineSpeed(engineSpeed: Long) {
+        subscribers.forEach { it.onEngineSpeed(engineSpeed) }
+    }
+
+    private fun postCruiseControlState(cruiseControlState: Int) {
+        subscribers.forEach { it.onCruiseControl(cruiseControlState) }
+    }
+
+    private fun postDistanceToForwardVehivale(distanceToForwardVehicle: Long) {
+        subscribers.forEach { it.onDistanceToForwardVehicle(distanceToForwardVehicle) }
+    }
+
+    private fun postCoolantTemperature(coolantTemperature: Float) {
+        subscribers.forEach { it.onCoolantTemperature(coolantTemperature) }
+    }
+
+    private fun postAccelPedalPos(accelPedalPos: Int) {
+        subscribers.forEach { it.onAccelPedalPos(accelPedalPos) }
+    }
+
+    private fun postAmbientTemperature(temperature: Float) {
+        subscribers.forEach { it.onAmbientTemperature(temperature) }
     }
 
     private fun postVehicleSpeed(speed: Float) {
